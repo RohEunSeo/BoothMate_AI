@@ -1,0 +1,31 @@
+# --- ✅ Node.js (Frontend) ---
+/node_modules
+/.pnp
+.pnp.js
+/coverage
+/build
+.DS_Store
+.env*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- ✅ Python (Backend) ---
+# Python virtualenv
+venv/
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# IDE / OS 관련 파일
+*.swp
+*.swo
+*.idea/
+*.vscode/
+
+# Byte-compiled or cache files
+*.log
+
+# 환경 변수 파일
+*.env
