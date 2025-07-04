@@ -7,6 +7,7 @@ interface SidebarProps {
   onRemoveBooth: () => void
   onResetBooths: () => void
   onUploadFloorImage: (file: File) => void
+  onUploadCompanyList: (file: File) => void // ✅ 새로 추가된 prop
 }
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -14,6 +15,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   onRemoveBooth,
   onResetBooths,
   onUploadFloorImage,
+  onUploadCompanyList, // ✅ 사용
 }) => {
   return (
     <div
@@ -51,11 +53,13 @@ const Sidebar: React.FC<SidebarProps> = ({
           }}
         />
       </div>
+
+      {/* ✅ 참가 기업 목록 업로드 */}
       <div style={{ position: 'relative', width: '100%' }}>
         <HoverButton>참가 기업 목록 업로드</HoverButton>
         <input
           type="file"
-          accept=".csv, .xlsx"
+          accept=".csv,.xlsx"
           style={{
             position: 'absolute',
             top: 0,
@@ -68,7 +72,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           onChange={(e) => {
             const file = e.target.files?.[0]
             if (file) {
-              onUploadFloorImage(file)
+              onUploadCompanyList(file) // ✅ 새 함수 호출
               console.log('참가 기업 파일 선택됨:', file.name)
             }
           }}

@@ -1,15 +1,18 @@
+// src/components/Booth3D.tsx
 import React, { useRef, useState } from 'react'
 import { Mesh, Vector2, Raycaster, Plane, Vector3 } from 'three'
 import { useThree } from '@react-three/fiber'
 import { useDrag } from '@use-gesture/react'
-import { Edges } from '@react-three/drei'
+import { Edges, Text } from '@react-three/drei'
 
 interface Booth3DProps {
   position: [number, number, number]
   setIsDragging: (dragging: boolean) => void
+  label?: string
+  color?: string // ✅ 추가: 색상 입력
 }
 
-const Booth3D: React.FC<Booth3DProps> = ({ position, setIsDragging }) => {
+const Booth3D: React.FC<Booth3DProps> = ({ position, setIsDragging, label, color = "orange" }) => {
   const meshRef = useRef<Mesh>(null)
   const { size, camera } = useThree()
 
@@ -55,17 +58,24 @@ const Booth3D: React.FC<Booth3DProps> = ({ position, setIsDragging }) => {
   })
 
   return (
-    <mesh
-      ref={meshRef}
-      position={position}
-      castShadow
-      receiveShadow
-      {...bind()}
-    >
-      <boxGeometry args={[2, 1, 2]} />
-      <meshStandardMaterial color="orange" />
+    <group position={position} {...bind()} ref={meshRef}>
+      <mesh castShadow receiveShadow>
+        <boxGeometry args={[2, 1, 2]} />
+        <meshStandardMaterial color={color} /> {/* ✅ 반영됨 */}
+      </mesh>
       <Edges threshold={15} scale={1} color="black" />
-    </mesh>
+      {label && (
+        <Text
+          position={[0, 1.2, 0]}
+          fontSize={0.4}
+          color="black"
+          anchorX="center"
+          anchorY="middle"
+        >
+          {label}
+        </Text>
+      )}
+    </group>
   )
 }
 
